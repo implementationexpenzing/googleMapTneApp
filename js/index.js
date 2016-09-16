@@ -2055,9 +2055,10 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	alert("component    "+component)
+	alert("component    "+component.value)
 		var searchBox = new google.maps.places.SearchBox(component);
-		alert("searchBox   "+searchBox.value)
+		alert("searchBox.value "+searchBox.value)
+		alert("searchBox   "+searchBox)
 		searchBox.addListener("places_changed", function(){
 		fromLoc = document.getElementById("expFromLoc").value;
 		toLoc = document.getElementById("expToLoc").value;
