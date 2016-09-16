@@ -2055,9 +2055,9 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	alert("component    "+component)
+	alert("component    "+component.value)
 		var searchBox = new google.maps.places.SearchBox(component);
-		alert("searchBox   "+searchBox)
+		alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
 		fromLoc = getComponent("expFromLoc");
 		toLoc = getComponent("expToLoc");
