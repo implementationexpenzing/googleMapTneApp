@@ -92,8 +92,8 @@ function commanLogin(){
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
-	jsonToDomainNameSend["mobilePlatform"] = device.platform;
-	//jsonToDomainNameSend["mobilePlatform"] = "Android";
+	//jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
 	j.ajax({
@@ -2052,3 +2052,131 @@ function validateValidMobileUser(){
 	   });
 	}
 }
+
+function attachGoogleSearchBox(component){
+	//alert("attachGoogleSearchBox")
+	//alert("component    "+component)
+		var searchBox = new google.maps.places.SearchBox(component);
+		//alert("searchBox   "+searchBox)
+		searchBox.addListener("places_changed", function(){
+		fromLoc = getComponent("expFromLoc");
+		toLoc = getComponent("expToLoc");
+			if(fromLoc.value!='' && toLoc.value!=''){
+				wayPoint=getComponent("wayPointunitValue",row);
+				wayPoint.value='';
+				calculateAndDisplayRoute(row);
+			}
+	});
+}
+
+function getComponent(componentName)
+	{
+		var obj;
+		try
+		{
+			//alert("Finding "+componentName)
+			obj=returnObjById(componentName);
+		}
+		catch (err)
+		{
+			//alert(err);
+		}
+
+		return obj;
+		alert("obj   "+obj)
+	}
+
+function returnObjById( id )
+	{
+		if (document.getElementById)
+			var returnVar = document.getElementById(id);
+		else if (document.all)
+			var returnVar = document.all[id];
+		else if (document.layers)
+			var returnVar = document.layers[id];
+		return returnVar;
+	}
+	
+function calculateAndDisplayRoute() {
+		//alert("calculateAndDisplayRoute : ")
+		var map;
+		var directionsDisplay;
+		var directionsService;
+		
+		map= new google.maps.Map(document.getElementById('map'), {
+		    center: {lat:19.122272, lng:72.863623},
+		    zoom: 13
+		  });
+		directionsService = new google.maps.DirectionsService;
+		// Create a renderer for directions and bind it to the map.
+		  directionsDisplay = new google.maps.DirectionsRenderer({
+		     draggable: true,
+		     map: map
+		   });
+		  
+		  	fromLoc = getComponent("expFromLoc");
+			toLoc = getComponent("expToLoc");
+			unitValue=getComponent("unitValue");
+			//wayPoint=getComponent("wayPointunitValue");
+		  directionsDisplay.addListener('directions_changed', function() {
+		    computeTotalDistance(directionsDisplay.getDirections());
+			});
+		  var points=[];
+		  
+		  if(fromLoc!=null && toLoc!=null){
+			  /*if(wayPoint!= null && wayPoint.value !=""){
+				  var os= j.parseJSON(wayPoint.value); 
+				  for(var i=0;i<os.waypoints.length;i++)
+					  points[i] = {'location': new google.maps.LatLng(os.waypoints[i][0], os.waypoints[i][1]),'stopover':false }
+			  }*/
+
+			  directionsService.route({
+				  origin: fromLoc.value,
+				  destination:toLoc.value,
+				  travelMode: google.maps.TravelMode.DRIVING,
+				  waypoints: points
+			  }, function(response, status) {
+				  // Route the directions and pass the response to a function
+					// to create
+				  // markers for each step.
+				  if (status === google.maps.DirectionsStatus.OK) {
+					  directionsDisplay.setDirections(response);
+
+				  } else {
+					  unitValue.value='NA';
+					  //wayPoint.value='';
+				  }
+			  });
+		  }
+		 
+	}
+	
+function computeTotalDistance(result) {
+		unitValue=getComponent("expUnit");
+		busExpNameIdObj = getComponent("expenseName");
+		//wayPoint=getComponent("wayPointunitValue");
+		
+		  var total = 0;
+		  var myroute = result.routes[0];
+		  for (var i = 0; i < myroute.legs.length; i++) {
+			  total += myroute.legs[i].distance.value;
+		  }
+		 total = total / 1000;
+		 unitValue.value=total;
+		 var w=[],wp;
+		 var data = {};
+	     var rleg = myroute.legs[0];
+	     data.start = {'lat': rleg.start_location.lat(), 'lng':rleg.start_location.lng()}
+	     data.end = {'lat': rleg.end_location.lat(), 'lng':rleg.end_location.lng()}
+	     var wp = rleg.via_waypoints
+	     for(var i=0;i<wp.length;i++)
+	     {
+	    	 w[i] = [wp[i].lat(),wp[i].lng()]
+	     }
+	     data.waypoints = w;
+	   	 var str = JSON.stringify(data);
+	   	// wayPoint.value=str;
+
+		var grId = document.forms[0]["gradeId"].value;
+		returnUnitResult(row);
+	}

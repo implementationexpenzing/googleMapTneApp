@@ -102,5 +102,8 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <platform name="winphone" />
-
+<access origin="*://*.googleapis.com/*" subdomains="true" />
+<access origin="*://*.gstatic.com/*" subdomains="true" />
+<access origin="*://*.google.com/*" subdomains="true" />
+<access origin="*://*.googleusercontent.com/*" subdomains="true" />
 </widget>
