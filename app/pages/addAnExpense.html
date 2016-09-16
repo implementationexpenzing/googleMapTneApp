@@ -77,11 +77,14 @@ var currentYear;
       getExpenseNamesBasedOnAccountHead();
   });
      j("#expenseName").change(function() {
+      alert("expenseName  change")
       getPerUnitBasedOnExpense();
     //var formLocation = getComponent("expFromLoc");
     //var toLocation = getComponent("expToLoc");
-    attachGoogleSearchBox(expFromLoc);
-    attachGoogleSearchBox(expToLoc);
+    var expFromLoc1 =  document.getElementById("expFromLoc").value;
+    var expToLoc1 =  document.getElementById("expToLoc").value;
+    attachGoogleSearchBox(expFromLoc1);
+    attachGoogleSearchBox(expToLoc1);
   });
       onloadExpense();
   /*function goToAttachGoogleSearchBox()
