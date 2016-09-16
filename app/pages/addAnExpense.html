@@ -16,8 +16,8 @@
                   <input id="expenseName" type="hidden" style="width: 98%">
                 </li>
                 <li>
-                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location" onkeyup="goToAttachGoogleSearchBox();">
-          <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location" onkeyup="goToAttachGoogleSearchBox();">
+                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location">
+          <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location">
                 </li>
                 <li>
                   <input id="expNarration" type="text" placeholder="Enter Expense Narration" >
@@ -78,13 +78,17 @@ var currentYear;
   });
      j("#expenseName").change(function() {
       getPerUnitBasedOnExpense();
+    //var formLocation = getComponent("expFromLoc");
+    //var toLocation = getComponent("expToLoc");
+    attachGoogleSearchBox(expFromLoc);
+    attachGoogleSearchBox(expToLoc);
   });
       onloadExpense();
-  function goToAttachGoogleSearchBox()
+  /*function goToAttachGoogleSearchBox()
   {
     var formLocation = getComponent("expFromLoc");
     var toLocation = getComponent("expToLoc");
     attachGoogleSearchBox(formLocation);
     attachGoogleSearchBox(toLocation);
-  }
+  }*/
     </script> 

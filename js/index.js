@@ -2055,12 +2055,12 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	alert("component    "+component.value)
+	//alert("component    "+component.value)
 		var searchBox = new google.maps.places.SearchBox(component);
-		alert("searchBox   "+searchBox.value)
+		//alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
-		fromLoc = getComponent("expFromLoc");
-		toLoc = getComponent("expToLoc");
+		fromLoc = document.getElementById("expFromLoc");
+		toLoc = document.getElementById("expToLoc");
 			if(fromLoc.value!='' && toLoc.value!=''){
 				wayPoint=getComponent("wayPointunitValue",row);
 				wayPoint.value='';
@@ -2069,7 +2069,7 @@ function attachGoogleSearchBox(component){
 	});
 }
 
-function getComponent(componentName)
+/*function getComponent(componentName)
 	{
 		var obj;
 		try
@@ -2095,7 +2095,7 @@ function returnObjById( id )
 		else if (document.layers)
 			var returnVar = document.layers[id];
 		return returnVar;
-	}
+	}*/
 	
 function calculateAndDisplayRoute() {
 		//alert("calculateAndDisplayRoute : ")
@@ -2114,9 +2114,9 @@ function calculateAndDisplayRoute() {
 		     map: map
 		   });
 		  
-		  	fromLoc = getComponent("expFromLoc");
-			toLoc = getComponent("expToLoc");
-			unitValue=getComponent("unitValue");
+		  	fromLoc = document.getElementById("expFromLoc");
+			toLoc = document.getElementById("expToLoc");
+			unitValue = document.getElementById("unitValue");
 			//wayPoint=getComponent("wayPointunitValue");
 		  directionsDisplay.addListener('directions_changed', function() {
 		    computeTotalDistance(directionsDisplay.getDirections());
@@ -2124,11 +2124,11 @@ function calculateAndDisplayRoute() {
 		  var points=[];
 		  
 		  if(fromLoc!=null && toLoc!=null){
-			  /*if(wayPoint!= null && wayPoint.value !=""){
+			  if(wayPoint!= null && wayPoint.value !=""){
 				  var os= j.parseJSON(wayPoint.value); 
 				  for(var i=0;i<os.waypoints.length;i++)
 					  points[i] = {'location': new google.maps.LatLng(os.waypoints[i][0], os.waypoints[i][1]),'stopover':false }
-			  }*/
+			  }
 
 			  directionsService.route({
 				  origin: fromLoc.value,
