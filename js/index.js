@@ -1239,6 +1239,8 @@ function setPerUnitDetails(transaction, results){
 					document.getElementById("expToLoc").disabled =false;
 					document.getElementById("expFromLoc").style.backgroundColor='#FFFFFF'; 
 					document.getElementById("expToLoc").style.backgroundColor='#FFFFFF'; 
+					attachGoogleSearchBox(document.getElementById("expFromLoc"));
+					attachGoogleSearchBox(document.getElementById("expToLoc"));
 				}
 				if(perUnitDetailsJSON.isUnitReqd=='Y'){
 					document.getElementById("expAmt").value="";
@@ -2055,15 +2057,15 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	alert("component    "+component.value)
+	alert("component    "+component)
 		var searchBox = new google.maps.places.SearchBox(component);
-		alert("searchBox.value "+searchBox.value)
-		alert("searchBox   "+searchBox)
+		alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
 		fromLoc = document.getElementById("expFromLoc").value;
 		toLoc = document.getElementById("expToLoc").value;
 			if(fromLoc.value!='' && toLoc.value!=''){
-				wayPoint=getComponent("wayPointunitValue",row);
+				wayPoint=document.getElementById("wayPointunitValue");
+				alert("wayPoint   "+wayPoint)
 				wayPoint.value='';
 				calculateAndDisplayRoute(row);
 			}
@@ -2099,7 +2101,7 @@ function returnObjById( id )
 	}*/
 	
 function calculateAndDisplayRoute() {
-		//alert("calculateAndDisplayRoute : ")
+		alert("calculateAndDisplayRoute : ")
 		var map;
 		var directionsDisplay;
 		var directionsService;
@@ -2118,7 +2120,7 @@ function calculateAndDisplayRoute() {
 		  	fromLoc = document.getElementById("expFromLoc");
 			toLoc = document.getElementById("expToLoc");
 			unitValue = document.getElementById("unitValue");
-			//wayPoint=getComponent("wayPointunitValue");
+			wayPoint=getComponent("wayPointunitValue");
 		  directionsDisplay.addListener('directions_changed', function() {
 		    computeTotalDistance(directionsDisplay.getDirections());
 			});
@@ -2145,7 +2147,7 @@ function calculateAndDisplayRoute() {
 
 				  } else {
 					  unitValue.value='NA';
-					  //wayPoint.value='';
+					  wayPoint.value='';
 				  }
 			  });
 		  }
