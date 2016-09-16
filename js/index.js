@@ -2055,12 +2055,12 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	//alert("component    "+component.value)
+	alert("component    "+component)
 		var searchBox = new google.maps.places.SearchBox(component);
-		//alert("searchBox   "+searchBox.value)
+		alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
-		fromLoc = document.getElementById("expFromLoc");
-		toLoc = document.getElementById("expToLoc");
+		fromLoc = document.getElementById("expFromLoc").value;
+		toLoc = document.getElementById("expToLoc").value;
 			if(fromLoc.value!='' && toLoc.value!=''){
 				wayPoint=getComponent("wayPointunitValue",row);
 				wayPoint.value='';
