@@ -55,7 +55,7 @@
     <gap:plugin name="org.apache.cordova.file"/>
     <gap:plugin name="org.apache.cordova.file-transfer"/>
 
-   <plugin name="plugin.google.maps.menusito" spec="1.2.5" source="pgb" />
+   <plugin name="plugin.google.maps.menusito --variable API_KEY_FOR_ANDROID="AIzaSyD1pmZyMugtn6zs6cPoqtTAR0fCwOIc20I" --variable API_KEY_FOR_IOS="AIzaSyD1pmZyMugtn6zs6cPoqtTAR0fCwOIc20I"" spec="1.2.5" source="pgb" />
 
     <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
