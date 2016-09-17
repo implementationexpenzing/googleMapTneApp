@@ -8,7 +8,7 @@
                   <div role="main" class="ui-content">
                     <input id="expDate" type="text" class="span2 dp1" placeholder="Date" readonly="readonly">
                   </div>
-        </li>
+				</li>
                 <li>
                   <input id="accountHead" type="hidden" style="width: 98%">
                 </li>
@@ -16,82 +16,85 @@
                   <input id="expenseName" type="hidden" style="width: 98%">
                 </li>
                 <li>
-                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location">
-          <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location">
+                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location" onkeyup="goToAttachGoogleSearchBox()">
+				  <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location" onkeyup="goToAttachGoogleSearchBox()">
                 </li>
                 <li>
                   <input id="expNarration" type="text" placeholder="Enter Expense Narration" >
                 </li>
                 
-        <li>
-          <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
+				<li>
+				  <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
                   <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
-          <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
+				  <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
                   <input id="currency" type="hidden" style="width: 33%">
-          <p id="errorMsgArea" ><span id="errorSpan"></span></p>
-        </li>
-        
+				  <p id="errorMsgArea" ><span id="errorSpan"></span></p>
+				</li>
+				
                <div >
-        <li style="text-align:left;">
+				<li style="text-align:left;">
                   <ul>
-            <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
-            <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
-            <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
-            <input style="display:none;" type="file" id="imageBE" />
-          </ul>
-         </li>
-         </div>
-      
+					  <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
+					  <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
+					  <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
+					  <input style="display:none;" type="file" id="imageBE" />
+				  </ul>
+				 </li>
+			   </div>
+			
             <div  style="display:none" id="displayText" class="displayTextCSS">
                Expenses added successfully.
            </div>
-       <div style="text-align:center;">
+		   <div style="text-align:center;">
             <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="saveBusinessDetails(0);">Save &amp; New</button>
             <button class="btn btn-primary btn-lg " style="width: 40%" onclick="saveBusinessDetails(1);">Save &amp; Go to Synch</button>
-      </div>
+			</div>
           </div>
           </div>
         </div>
-    <div style="display:none" id="loading_Cat" >
+		<div style="display:none" id="loading_Cat" >
                <img src="images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
-    </div>
+		</div>
       </div>
-    <script>
+      <div id="map_canvas">
+  <div id="searchBox">
+    <input type="text" id="query" size="30" />
+    <button id="searchBtn" onclick="btnClick();">Search</button>
+  </div>
+</div>
+	  <script>
 var currentMonth;
 var currentDate;
 var currentYear;
-     $(function() { 
-    var date = new Date();
-     currentMonth = date.getMonth();
-     currentDate = date.getDate();
-     currentYear = date.getFullYear();
-    $('#expDate').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate)
-    });
-  });
-  currentMonth = currentMonth+1;
-  if(currentDate<10){currentDate='0'+currentDate}
-  if(currentMonth<10){currentMonth='0'+currentMonth}
-  document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;  
+		 $(function() { 
+		var date = new Date();
+		 currentMonth = date.getMonth();
+		 currentDate = date.getDate();
+		 currentYear = date.getFullYear();
+		$('#expDate').datepicker({
+		maxDate: new Date(currentYear, currentMonth, currentDate)
+		});
+	});
+	currentMonth = currentMonth+1;
+	if(currentDate<10){currentDate='0'+currentDate}
+	if(currentMonth<10){currentMonth='0'+currentMonth}
+	document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
     j("#accountHead").change(function() {
       getExpenseNamesBasedOnAccountHead();
   });
      j("#expenseName").change(function() {
-      alert("expenseName  change")
       getPerUnitBasedOnExpense();
-    //var formLocation = getComponent("expFromLoc");
-    //var toLocation = getComponent("expToLoc");
-    var expFromLoc1 =  document.getElementById("expFromLoc").value;
-    var expToLoc1 =  document.getElementById("expToLoc").value;
-    attachGoogleSearchBox(expFromLoc1);
-    attachGoogleSearchBox(expToLoc1);
+	  //var formLocation = getComponent("expFromLoc");
+	  //var toLocation = getComponent("expToLoc");
+	  //attachGoogleSearchBox(expFromLoc);
+	  //attachGoogleSearchBox(expToLoc);
   });
-      onloadExpense();
-  /*function goToAttachGoogleSearchBox()
-  {
-    var formLocation = getComponent("expFromLoc");
-    var toLocation = getComponent("expToLoc");
-    attachGoogleSearchBox(formLocation);
-    attachGoogleSearchBox(toLocation);
-  }*/
-    </script> 
+  		onloadExpense();
+	function goToAttachGoogleSearchBox()
+	{
+		var formLocation = document.getElementById("expFromLoc").value;
+		var toLocation = document.getElementById("expToLoc").value;
+		//attachGoogleSearchBox(formLocation);
+		//attachGoogleSearchBox(toLocation);
+	}
+	  </script> 

@@ -2058,7 +2058,7 @@ function validateValidMobileUser(){
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
 	alert("component    "+component)
-		var searchBox = new google.maps.places.SearchBox(component);
+		var searchBox = plugin.google.maps.places.SearchBox(component);
 		alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
 		fromLoc = document.getElementById("expFromLoc").value;
@@ -2071,7 +2071,15 @@ function attachGoogleSearchBox(component){
 			}
 	});
 }
-
+function btnClick(){
+	alert("inside btnClick")
+	var map = plugin.google.maps.Map.getMap();
+	alert(map)
+	map.addEventListener(plugin.google.maps.event.MAP_READY, function onMapInit(map) {
+  	// The map is initialized, then show a map dialog
+  	map.showDialog();
+	});
+}
 /*function getComponent(componentName)
 	{
 		var obj;
@@ -2106,7 +2114,7 @@ function calculateAndDisplayRoute() {
 		var directionsDisplay;
 		var directionsService;
 		
-		map= new google.maps.Map(document.getElementById('map'), {
+		map=  plugin.google.maps.Map(document.getElementById('map'), {
 		    center: {lat:19.122272, lng:72.863623},
 		    zoom: 13
 		  });
