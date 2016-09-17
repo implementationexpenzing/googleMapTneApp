@@ -2055,7 +2055,17 @@ function validateValidMobileUser(){
 	}
 }
 
-function attachGoogleSearchBox(component){
+
+function btnClick(){
+	alert("inside btnClick")
+	var map = plugin.google.maps.Map.getMap();
+	alert(map)
+	map.addEventListener(plugin.google.maps.event.MAP_READY, function onMapInit(map) {
+  	// The map is initialized, then show a map dialog
+  	map.showDialog();
+	});
+}
+/*function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
 	alert("component    "+component)
 		var searchBox = plugin.google.maps.places.SearchBox(component);
@@ -2071,16 +2081,8 @@ function attachGoogleSearchBox(component){
 			}
 	});
 }
-function btnClick(){
-	alert("inside btnClick")
-	var map = plugin.google.maps.Map.getMap();
-	alert(map)
-	map.addEventListener(plugin.google.maps.event.MAP_READY, function onMapInit(map) {
-  	// The map is initialized, then show a map dialog
-  	map.showDialog();
-	});
-}
-/*function getComponent(componentName)
+
+function getComponent(componentName)
 	{
 		var obj;
 		try
@@ -2106,7 +2108,7 @@ function returnObjById( id )
 		else if (document.layers)
 			var returnVar = document.layers[id];
 		return returnVar;
-	}*/
+	}
 	
 function calculateAndDisplayRoute() {
 		alert("calculateAndDisplayRoute : ")
@@ -2190,4 +2192,4 @@ function computeTotalDistance(result) {
 
 		var grId = document.forms[0]["gradeId"].value;
 		returnUnitResult(row);
-	}
+	}*/
