@@ -55,7 +55,7 @@
     <gap:plugin name="org.apache.cordova.file"/>
     <gap:plugin name="org.apache.cordova.file-transfer"/>
 
-    <plugin name="plugin.google.maps.menusito">
+    <plugin name="plugin.google.maps.menusito" source="pgb">
             <param name="id" value="plugin.google.maps" />
             <variable name="API_KEY_FOR_ANDROID" value="AIzaSyD1pmZyMugtn6zs6cPoqtTAR0fCwOIc20I" />
     </plugin>
