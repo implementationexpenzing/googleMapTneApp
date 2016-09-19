@@ -2126,7 +2126,7 @@ function calculateAndDisplayRoute() {
 		var directionsDisplay;
 		var directionsService;
 		
-		map= new google.maps.Map(document.getElementById('map'), {
+		map= new google.maps.Map(document.getElementById("map"), {
 		    center: {lat:19.122272, lng:72.863623},
 		    zoom: 13
 		  });
@@ -2214,4 +2214,36 @@ function closeMap(){
 
 function removeErrorHighlight(object){
 		object.className = "";
+	}
+	
+	
+function gOnBlur(grid,cid)
+	{
+		var narrationObj = getComponent("expNarration");
+		var busExpFromObj = getComponent("expFromLoc");
+		var busExpToObj = getComponent("expToLoc");
+		if(document.getElementById("expFromLoc") == "expFromLoc" || document.getElementById("expToLoc") == "expToLoc"){
+			dateObj = getComponent("expDate");
+			narrationObj.value=dateObj.value+"--"+busExpFromObj.value+"--"+busExpToObj.value;			
+		}
+		if(document.getElementById("expAmt") == "expAmt" && onExpenseAmountKeyUpFlag =='Y'){
+					
+			onExpenseAmountKeyUpFlag = 'N';
+			var frmObj =  document.forms[0];
+			
+			var priceObj = getComponent("expAmt");
+			var amountComponent = getComponent("expAmt");
+			// alert("expenseAmount["+priceObj.value+"]");
+	
+	
+			if(checkForNumeric(priceObj)) {
+				var result=Math.round(priceObj.value*100)/100
+				if(result == 0)
+				{
+					priceObj.value="" ;
+				}else{
+					priceObj.value=result ;
+				}
+			}
+		}
 	}
