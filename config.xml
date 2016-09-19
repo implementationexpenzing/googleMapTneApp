@@ -55,6 +55,11 @@
     <gap:plugin name="org.apache.cordova.file"/>
     <gap:plugin name="org.apache.cordova.file-transfer"/>
 
+   <!-- <gap:plugin spec="https://github.com/mapsplugin/cordova-plugin-googlemaps" source="git">
+   <param name="API_KEY_FOR_ANDROID" value="AIzaSyD1pmZyMugtn6zs6cPoqtTAR0fCwOIc20I" />
+   <param name="API_KEY_FOR_IOS" value="AIzaSyD1pmZyMugtn6zs6cPoqtTAR0fCwOIc20I" />
+   </gap:plugin> -->
+
     <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
     <!-- <plugin name="File" value="CDVFile" />
@@ -88,6 +93,11 @@
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <access origin="*" />
+	
+	<!-- <access origin="*://*.googleapis.com/*" subdomains="true" />
+    <access origin="*://*.gstatic.com/*" subdomains="true" />
+    <access origin="*://*.google.com/*" subdomains="true" />
+    <access origin="*://*.googleusercontent.com/*" subdomains="true" /> -->
     
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

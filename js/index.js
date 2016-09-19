@@ -2057,17 +2057,16 @@ function validateValidMobileUser(){
 
 function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
-	alert("component    "+component)
-		var searchBox = new google.maps.places.SearchBox(component);
-		alert("searchBox   "+searchBox.value)
-		searchBox.addListener("places_changed", function(){
-		fromLoc = document.getElementById("expFromLoc").value;
-		toLoc = document.getElementById("expToLoc").value;
+	alert("component   "+component.id)
+	var searchBox = new google.maps.places.SearchBox(component);
+	searchBox.addListener("places_changed", function(){
+		alert("here")
+		fromLoc = getComponent("expFromLoc");
+		toLoc = getComponent("expToLoc");
 			if(fromLoc.value!='' && toLoc.value!=''){
-				wayPoint=document.getElementById("wayPointunitValue");
-				alert("wayPoint   "+wayPoint)
+				wayPoint = getComponent("wayPointunitValue");
 				wayPoint.value='';
-				calculateAndDisplayRoute(row);
+				calculateAndDisplayRoute();
 			}
 	});
 }
@@ -2110,14 +2109,14 @@ function returnObjById( id )
 		return returnVar;
 	}
 	
-function viewMap(row){
+function viewMap(){
 		document.getElementById('openModal').style.display="block";
 		fromLoc = getComponent("expFromLoc");
 		toLoc = getComponent("expToLoc");
 		unitValue = getComponent("expUnit");
 		wavepoint = getComponent("wayPointunitValue");
 		if(fromLoc.value!='' && toLoc.value!=''){
-			calculateAndDisplayRoute(row);
+			calculateAndDisplayRoute();
 		}
 	}	
 	
@@ -2147,7 +2146,7 @@ function calculateAndDisplayRoute() {
 			wayPoint = getComponent("wayPointunitValue");
 		  	//alert("wayPoint   "+wayPoint.value)
 		  directionsDisplay.addListener('directions_changed', function() {
-		    computeTotalDistance(directionsDisplay.getDirections(),row);
+		    computeTotalDistance(directionsDisplay.getDirections());
 			});
 		  var points=[];
 		  
@@ -2206,9 +2205,13 @@ function computeTotalDistance(result) {
 	   	 wayPoint.value=str;
 
 		//var grId = document.forms[0]["gradeId"].value;
-		//returnUnitResult(row);
+		//returnUnitResult();
 	}
 	
 function closeMap(){
 	 document.getElementById('openModal').style.display="none";
 }
+
+function removeErrorHighlight(object){
+		object.className = "";
+	}

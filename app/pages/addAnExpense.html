@@ -16,8 +16,8 @@
                   <input id="expenseName" type="hidden" style="width: 98%">
                 </li>
                 <li>
-                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location" onkeyup="goToAttachGoogleSearchBox()">
-				  <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location" onkeyup="goToAttachGoogleSearchBox()">
+                  <input id="expFromLoc" type="text" style="width: 49%" placeholder="From Location" onkeyup="goToAttachGoogleSearchBox('expFromLoc');">
+				  <input id="expToLoc" type="text" style="width: 49%" placeholder="To Location" onkeyup="goToAttachGoogleSearchBox('expToLoc');">
                 </li>
                 <li>
                   <input id="expNarration" type="text" placeholder="Enter Expense Narration" >
@@ -26,6 +26,7 @@
 				<li>
 				  <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
                   <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
+				  <input id="wayPointunitValue" value="" readonly="readonly" type="hidden">
 				  <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
                   <input id="currency" type="hidden" style="width: 33%">
 				  <p id="errorMsgArea" ><span id="errorSpan"></span></p>
@@ -37,7 +38,13 @@
 					  <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
 					  <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
 					  <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
-					  <img src="images/google_map_icon.jpg" onclick="calculateAndDisplayRoute();" width="10%" height="10%" >
+					  <img src="images/google_map_icon.jpg" onclick="viewMap();" width="10%" height="10%" >
+					  <div id="openModal" style="display:none;">
+						<div>
+							<a href="#close" onclick="closeMap();"  title="Close" style="color:black; font-size:16px; background-color:white" class="close">X</a>
+							<div id="map"></div>
+						</div>
+					  </div>
 					  <input style="display:none;" type="file" id="imageBE" />
 				  </ul>
 				 </li>
@@ -57,12 +64,6 @@
                <img src="images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
 		</div>
       </div>
-	  <div id="openModal">
-		  <div>
-				<a href="#close" onclick="closeMap();"  title="Close" style="color:black; font-size:16px; background-color:white" class="close">X</a>
-				<div id="map"></div>
-		  </div>
-	  </div>
 <script type="text/javascript">
 
 function initialize() {
@@ -112,11 +113,11 @@ var currentYear;
 	  //attachGoogleSearchBox(expToLoc);
   });
   		onloadExpense();
-	function goToAttachGoogleSearchBox()
+	function goToAttachGoogleSearchBox(compName)
 	{
-		var formLocation = document.getElementById("expFromLoc").value;
-		var toLocation = document.getElementById("expToLoc").value;
-		attachGoogleSearchBox(expFromLoc);
-		attachGoogleSearchBox(expToLoc);
+		var compObj=getComponent(compName);
+		alert("compObj   "+compObj.value)
+		removeErrorHighlight(compObj);
+		alert("compObj   "+compObj.value)
 	}
 	  </script> 
