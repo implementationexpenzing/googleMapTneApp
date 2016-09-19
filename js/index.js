@@ -2054,39 +2054,11 @@ function validateValidMobileUser(){
 	   });
 	}
 }
-document.addEventListener("deviceready", function() {
-  // Define a div tag with id="map_canvas"
-  var mapDiv = document.getElementById("map_canvas");
 
-  // Initialize the map plugin
-  var map = plugin.google.maps.Map.getMap(mapDiv);
-
-  // You have to wait the MAP_READY event.
-  map.on(plugin.google.maps.event.MAP_READY, onMapInit);
-});
-
-function btnClick(){
-	alert("inside btnClick")
-	var map = plugin.google.maps.Map.getMap();
-	alert(map)
-	document.addEventListener("deviceready", function() {
-  // Define a div tag with id="map_canvas"
-  var mapDiv = document.getElementById("map_canvas");
-
-  // Initialize the map plugin
-  var map = plugin.google.maps.Map.getMap(mapDiv);
-
-  // You have to wait the MAP_READY event.
-  map.on(plugin.google.maps.event.MAP_READY, onMapInit);
-});
-
-function onMapInit(map) {
-}
-}
-/*function attachGoogleSearchBox(component){
+function attachGoogleSearchBox(component){
 	alert("attachGoogleSearchBox")
 	alert("component    "+component)
-		var searchBox = plugin.google.maps.places.SearchBox(component);
+		var searchBox = new google.maps.places.SearchBox(component);
 		alert("searchBox   "+searchBox.value)
 		searchBox.addListener("places_changed", function(){
 		fromLoc = document.getElementById("expFromLoc").value;
@@ -2099,7 +2071,17 @@ function onMapInit(map) {
 			}
 	});
 }
-
+/*function btnClick(){
+	 alert("inside btnClick")
+	 var map = plugin.google.maps.Map.getMap();
+	 alert(map)
+	 map.addEventListener(plugin.google.maps.event.MAP_READY, function onMapInit(map) {
+  	 // The map is initialized, then show a map dialog
+  	 map.showDialog();
+	 });
+ }*/
+ 
+ 
 function getComponent(componentName)
 	{
 		var obj;
@@ -2128,13 +2110,24 @@ function returnObjById( id )
 		return returnVar;
 	}
 	
+function viewMap(row){
+		document.getElementById('openModal').style.display="block";
+		fromLoc = getComponent("expFromLoc");
+		toLoc = getComponent("expToLoc");
+		unitValue = getComponent("expUnit");
+		wavepoint = getComponent("wayPointunitValue");
+		if(fromLoc.value!='' && toLoc.value!=''){
+			calculateAndDisplayRoute(row);
+		}
+	}	
+	
 function calculateAndDisplayRoute() {
-		alert("calculateAndDisplayRoute : ")
+		alert("calculateAndDisplayRoute")
 		var map;
 		var directionsDisplay;
 		var directionsService;
 		
-		map=  plugin.google.maps.Map(document.getElementById('map'), {
+		map= new google.maps.Map(document.getElementById('map'), {
 		    center: {lat:19.122272, lng:72.863623},
 		    zoom: 13
 		  });
@@ -2145,12 +2138,16 @@ function calculateAndDisplayRoute() {
 		     map: map
 		   });
 		  
-		  	fromLoc = document.getElementById("expFromLoc");
-			toLoc = document.getElementById("expToLoc");
-			unitValue = document.getElementById("unitValue");
-			wayPoint=getComponent("wayPointunitValue");
+		  	fromLoc = getComponent("expFromLoc");
+		  	alert("fromLoc   "+fromLoc.value)
+			toLoc = getComponent("expToLoc");
+		  	alert("toLoc   "+toLoc.value)
+			unitValue = getComponent("expUnit");
+		  	alert("unitValue   "+unitValue.value)
+			wayPoint = getComponent("wayPointunitValue");
+		  	//alert("wayPoint   "+wayPoint.value)
 		  directionsDisplay.addListener('directions_changed', function() {
-		    computeTotalDistance(directionsDisplay.getDirections());
+		    computeTotalDistance(directionsDisplay.getDirections(),row);
 			});
 		  var points=[];
 		  
@@ -2175,7 +2172,7 @@ function calculateAndDisplayRoute() {
 
 				  } else {
 					  unitValue.value='NA';
-					  wayPoint.value='';
+					  //wayPoint.value='';
 				  }
 			  });
 		  }
@@ -2183,9 +2180,9 @@ function calculateAndDisplayRoute() {
 	}
 	
 function computeTotalDistance(result) {
-		unitValue=getComponent("expUnit");
+		unitValue = getComponent("expUnit");
 		busExpNameIdObj = getComponent("expenseName");
-		//wayPoint=getComponent("wayPointunitValue");
+		wayPoint = getComponent("wayPointunitValue");
 		
 		  var total = 0;
 		  var myroute = result.routes[0];
@@ -2193,7 +2190,7 @@ function computeTotalDistance(result) {
 			  total += myroute.legs[i].distance.value;
 		  }
 		 total = total / 1000;
-		 unitValue.value=total;
+		 unitValue.value = total;
 		 var w=[],wp;
 		 var data = {};
 	     var rleg = myroute.legs[0];
@@ -2206,8 +2203,12 @@ function computeTotalDistance(result) {
 	     }
 	     data.waypoints = w;
 	   	 var str = JSON.stringify(data);
-	   	// wayPoint.value=str;
+	   	 wayPoint.value=str;
 
-		var grId = document.forms[0]["gradeId"].value;
-		returnUnitResult(row);
-	}*/
+		//var grId = document.forms[0]["gradeId"].value;
+		//returnUnitResult(row);
+	}
+	
+function closeMap(){
+	 document.getElementById('openModal').style.display="none";
+}
