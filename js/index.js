@@ -2061,54 +2061,16 @@ function attachGoogleSearchBox(component){
 	var searchBox = new google.maps.places.SearchBox(component);
 	searchBox.addListener("places_changed", function(){
 		alert("here")
-		fromLoc = getComponent("expFromLoc");
-		toLoc = getComponent("expToLoc");
-			if(fromLoc.value!='' && toLoc.value!=''){
-				wayPoint = getComponent("wayPointunitValue");
-				wayPoint.value='';
-				calculateAndDisplayRoute();
+		//fromLoc = getComponent("expFromLoc");
+	//	toLoc = getComponent("expToLoc");
+		//	if(fromLoc.value!='' && toLoc.value!=''){
+			//	wayPoint = getComponent("wayPointunitValue");
+			//	wayPoint.value='';
+				//calculateAndDisplayRoute();
 			}
 	});
 }
-/*function btnClick(){
-	 alert("inside btnClick")
-	 var map = plugin.google.maps.Map.getMap();
-	 alert(map)
-	 map.addEventListener(plugin.google.maps.event.MAP_READY, function onMapInit(map) {
-  	 // The map is initialized, then show a map dialog
-  	 map.showDialog();
-	 });
- }*/
- 
- 
-function getComponent(componentName)
-	{
-		var obj;
-		try
-		{
-			//alert("Finding "+componentName)
-			obj=returnObjById(componentName);
-		}
-		catch (err)
-		{
-			//alert(err);
-		}
 
-		return obj;
-		alert("obj   "+obj)
-	}
-
-function returnObjById( id )
-	{
-		if (document.getElementById)
-			var returnVar = document.getElementById(id);
-		else if (document.all)
-			var returnVar = document.all[id];
-		else if (document.layers)
-			var returnVar = document.layers[id];
-		return returnVar;
-	}
-	
 function viewMap(){
 		document.getElementById('openModal').style.display="block";
 		fromLoc = getComponent("expFromLoc");
@@ -2212,38 +2174,4 @@ function closeMap(){
 	 document.getElementById('openModal').style.display="none";
 }
 
-function removeErrorHighlight(object){
-		object.className = "";
-	}
 	
-	
-function gOnBlur(grid,cid)
-	{
-		var narrationObj = getComponent("expNarration");
-		var busExpFromObj = getComponent("expFromLoc");
-		var busExpToObj = getComponent("expToLoc");
-		if(document.getElementById("expFromLoc") == "expFromLoc" || document.getElementById("expToLoc") == "expToLoc"){
-			dateObj = getComponent("expDate");
-			narrationObj.value=dateObj.value+"--"+busExpFromObj.value+"--"+busExpToObj.value;			
-		}
-		if(document.getElementById("expAmt") == "expAmt" && onExpenseAmountKeyUpFlag =='Y'){
-					
-			onExpenseAmountKeyUpFlag = 'N';
-			var frmObj =  document.forms[0];
-			
-			var priceObj = getComponent("expAmt");
-			var amountComponent = getComponent("expAmt");
-			// alert("expenseAmount["+priceObj.value+"]");
-	
-	
-			if(checkForNumeric(priceObj)) {
-				var result=Math.round(priceObj.value*100)/100
-				if(result == 0)
-				{
-					priceObj.value="" ;
-				}else{
-					priceObj.value=result ;
-				}
-			}
-		}
-	}
